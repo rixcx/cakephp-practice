@@ -1,0 +1,37 @@
+version: '3' #このファイルのバージョン
+services:    #起動するサービス（コンテナ）の設定定義
+  mysql:       #「mysql」という名前でサービスを定義
+    platform: linux/x86_64           #M1チップ対応のため追記
+    container_name: cakephp-mysql    #コンテナ名をつける
+    image: mysql:8                   #使用するイメージ
+    volumes:                         #データのマウント設定
+      - "./mysql/db:/var/lib/mysql"    #左辺がローカル、右辺がコンテナ
+    environment:                     #環境変数の設定
+      - MYSQL_ROOT_PASSWORD=password  #MySQLのrootユーザーのパスワード
+      - MYSQL_DATABASE=db_cakephp     #作成するDB名
+      - MYSQL_USER=cakephp            #一般ユーザー設定
+      - MYSQL_PASSWORD=cppassword     #一般ユーザーパスワード
+      - TZ='Asia/Tokyo'
+    ports:                           #ポート設定
+      - "3306:3306"                    #左辺がローカル、右辺がコンテナ
+  phpmyadmin:
+    container_name: cakephp-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    volumes:
+       - /sessions
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql                 #MySQLサーバーのホスト名を定義
+      - PMA_USER=root                  #MySQLサーバーに接続するユーザー名
+      - PMA_PASSWORD=password          #MySQLサーバーに接続するユーザーのパスワード　MYSQL_ROOT_PASSWORDと同じ
+    ports:
+       - "8080:80"
+  apache:
+    container_name: cakephp-apache
+    build: ./apache/                 #apachのDockerfileを使用してビルド
+    volumes:
+      - ./apache/html:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:                      #依存関係の定義 apache開始の前にmysqlを起動する
+      - mysql
