@@ -7,11 +7,11 @@ services:    #起動するサービス（コンテナ）の設定定義
     volumes:                         #データのマウント設定
       - "./mysql/db:/var/lib/mysql"    #左辺がローカル、右辺がコンテナ
     environment:                     #環境変数の設定
-      - MYSQL_ROOT_PASSWORD=password  #MySQLのrootユーザーのパスワード
-      - MYSQL_DATABASE=db_cakephp     #作成するDB名
-      - MYSQL_USER=cakephp            #一般ユーザー設定
-      - MYSQL_PASSWORD=cppassword     #一般ユーザーパスワード
-      - TZ='Asia/Tokyo'
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOTPASSWORD}  #MySQLのrootユーザーのパスワード
+      - MYSQL_DATABASE=${MYSQL_DATABASE}     #作成するDB名
+      - MYSQL_USER=${MYSQL_USER}            #一般ユーザー設定
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}    #一般ユーザーパスワード
+      - TZ=${MYSQL_TZ}
     ports:                           #ポート設定
       - "3306:3306"                    #左辺がローカル、右辺がコンテナ
   phpmyadmin:
@@ -21,9 +21,9 @@ services:    #起動するサービス（コンテナ）の設定定義
        - /sessions
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOST=mysql                 #MySQLサーバーのホスト名を定義
-      - PMA_USER=root                  #MySQLサーバーに接続するユーザー名
-      - PMA_PASSWORD=password          #MySQLサーバーに接続するユーザーのパスワード　MYSQL_ROOT_PASSWORDと同じ
+      - PMA_HOST=${PMA_HOST}                 #MySQLサーバーのホスト名を定義
+      - PMA_USER=${PMA_USER}                  #MySQLサーバーに接続するユーザー名
+      - PMA_PASSWORD${PMA_PASSWORD}          #MySQLサーバーに接続するユーザーのパスワード　MYSQL_ROOT_PASSWORDと同じ
     ports:
        - "8080:80"
   apache:
