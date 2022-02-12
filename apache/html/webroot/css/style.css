@@ -318,21 +318,26 @@ pre {
     margin-right: 9px;
 }
 
+.top-bar {
+  padding: 10px 0;
+}
+
+
 .top-bar.expanded .title-area {
-    background: #01545b;
+    background: #555;
 }
 
 .top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
-    background: #116d76;
+    background: #555;
 }
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
-    background-color: #308e97;
-    background: #308e97;
+    background-color: #aaa;
+    background: #555;
 }
 
 .side-nav li.heading {
-    color: #1798A5;
+    color: #aaa;
     font-size: 0.875rem;
     font-weight: bold;
     text-transform: uppercase;
