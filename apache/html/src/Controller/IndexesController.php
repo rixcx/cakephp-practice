@@ -29,7 +29,7 @@ class IndexesController extends AppController
      */
     public function index()
     {
-      $movies = $this->movies->find('all');
-      $this->set(compact('movies'));
+      $query = $this->movies->find('all')->contain(['Users']);
+      $this->set('movies', $query);
     }
 }

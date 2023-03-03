@@ -12,10 +12,10 @@
   <?php foreach ($movies as $movie): ?>
     <tr>
         <td><?= $movie->id ?></td>
-        <td><?= $this->Html->link("詳細へ", ['action' => 'view', $movie->slug]) ?></td>
+        <td><?= $this->Html->link("詳細へ", ['controller' => 'Movies', 'action' => 'view', $movie->slug]) ?></td>
         <td><?= $movie->name ?></td>
         <td><?= $movie->comment ?></td>
-        <td>作成者：<?= $movie->user_id ?></td>
+         <td>作成者：<?= $movie->user->name ?></td>
     </tr>
   <?php endforeach; ?>
 </table>
