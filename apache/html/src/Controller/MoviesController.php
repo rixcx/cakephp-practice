@@ -32,12 +32,12 @@ class MoviesController extends AppController
      *
      * @param string|null $id Movie id.
      * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not f$row = $query->first();ound.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($slug)
     {
-      $a = $this->Movies->find('all');
-      $out = $a->first();
+        $a = $this->Movies->find('all');
+        $out = $a->first();
 
         $movie = $this->Movies->get($out->id, [
             'contain' => ['Users', 'Lists', 'Tags'],
